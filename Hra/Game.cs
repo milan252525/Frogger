@@ -1,0 +1,272 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+using Hra.Properties;
+
+namespace Hra
+{
+    public enum GameState {notStarted, Running, Win, Loss};
+    public enum KeyPressed {up, down, left, right, none};
+    class Game
+    {
+        public GameState state = GameState.notStarted;
+        public Graphics graphics;
+        public int tile_size;
+        public int tiles_vertical;
+        public int tiles_horizontal;
+        public int height;
+        public int width;
+        public string[] background_tiles;
+
+        public Frog current_frog;
+
+        public GameObject[,] map;
+
+        public KeyPressed key_pressed;
+
+        public List<MovingGameObject> movingObjects;
+
+        public Background bg;
+
+        public Game(Graphics g)
+        {
+            graphics = g;
+            tile_size = 64;
+            background_tiles = new string[] {
+                "grass",
+                "river",
+                "river",
+                "river",
+                "beach",
+                "road",
+                "road",
+                "road",
+                "grass"
+            };
+            tiles_vertical = background_tiles.Length;
+            tiles_horizontal = 11;
+            map = new GameObject[tiles_vertical, tiles_horizontal];
+            height = tile_size * tiles_vertical;
+            width = tile_size * tiles_horizontal;
+            bg = new Background(this);
+            movingObjects = new List<MovingGameObject>();
+            state = GameState.Running;
+            key_pressed = KeyPressed.none;
+        }
+    }
+    abstract class GameObject
+    {
+        public Game game;
+        public int x;
+        public int y;
+        public abstract void draw();
+    }
+
+    abstract class MovingGameObject : GameObject
+    {
+        public abstract void move();
+    }
+
+    class Background : GameObject
+    {
+        public Background(Game game)
+        {
+            this.game = game;
+        }
+        public override void draw()
+        {
+            for (int i = 0; i < game.tiles_vertical; i++)
+            {
+                string type = game.background_tiles[i];
+                switch (type)
+                {
+                    case "grass":
+                        for (int j = 0; j < game.tiles_horizontal; j++)
+                        {
+                            game.graphics.DrawImage(Resources.grass, game.tile_size * j, game.tile_size * i);
+                        }
+                        break;
+                    case "river":
+                        Rectangle river = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
+                        game.graphics.FillRectangle(Brushes.DodgerBlue, river);
+                        break;
+                    case "beach":
+                        for (int j = 0; j < game.tiles_horizontal; j++)
+                        {
+                            game.graphics.DrawImage(Resources.beach, game.tile_size * j, game.tile_size * i);
+                        }
+                        break;
+                    case "road":
+                        Rectangle road = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
+                        game.graphics.FillRectangle(Brushes.Gray, road);
+                        break;
+                    default:
+                        break;
+                }
+            }  
+        }
+    }
+    class Frog : MovingGameObject
+    {
+        private long tick;
+        private short animation;
+        public bool on_log;
+        public Frog(Game game)
+        {
+            this.game = game;
+            x = game.tiles_horizontal / 2;
+            y = game.tiles_vertical - 1;
+            tick = 0;
+            animation = 0;
+            on_log = false;
+        }
+        public override void move()
+        {
+            if (game.state == GameState.Running && game.key_pressed != KeyPressed.none)
+            {
+                switch (game.key_pressed)
+                {
+                    case KeyPressed.up:
+                        y -= 1;
+                        break;
+                    case KeyPressed.down:
+                        y += 1;
+                        break;
+                    case KeyPressed.left:
+                        x -= 1;
+                        break;
+                    case KeyPressed.right:
+                        x += 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        public void move_right()
+        {
+            x += 1;
+        }
+
+        public void move_left()
+        {
+            x -= 1;
+        }
+
+
+        public override void draw()
+        {
+            tick++;
+            if (tick % 50 == 0)
+            {
+                animation++;
+            }
+            if (animation > 0)
+            {
+                if (animation < 5)
+                {
+                    game.graphics.DrawImage(Resources.frog_tongue1, game.tile_size * x, game.tile_size * y);
+                }
+                else if (animation < 10)
+                {
+                    game.graphics.DrawImage(Resources.frog_tongue2, game.tile_size * x, game.tile_size * y);
+                }
+                else if (animation < 15)
+                {
+                    game.graphics.DrawImage(Resources.frog_tongue1, game.tile_size * x, game.tile_size * y);
+                }
+                animation++;
+                if (animation == 15)
+                {
+                    animation = 0;
+                }
+            }
+            else
+            {
+                game.graphics.DrawImage(Resources.frog, game.tile_size * x, game.tile_size * y);
+            }
+        }
+    }
+
+    class Car: MovingGameObject
+    {
+        bool moving_left;
+        public Car(Game game, int x, int y, bool opposite=false)
+        {
+            this.game = game;
+            this.x = x;
+            this.y = y;
+            moving_left = opposite;
+        }
+        public override void move()
+        {
+            if (moving_left)
+            {
+                x -= 1;
+            }
+            else
+            {
+                x += 1;
+            }
+        }
+
+        public override void draw()
+        {
+            if (moving_left)
+            {
+                game.graphics.DrawImage(Resources.car1_left, game.tile_size * x, game.tile_size * y);
+            }
+            else
+            {
+                game.graphics.DrawImage(Resources.car1, game.tile_size * x, game.tile_size * y);
+            }
+        }
+    }
+    class Log : MovingGameObject
+    {
+        public bool moving_left;
+        public short length;
+        public Log(Game game, int x, int y, short length, bool opposite = false)
+        {
+            this.game = game;
+            this.x = x;
+            this.y = y;
+            this.length = length;
+            moving_left = opposite;
+        }
+        public override void move()
+        {
+            if (moving_left)
+            {
+                x -= 1;
+            }
+            else
+            {
+                x += 1;
+            }
+        }
+
+        public override void draw()
+        {
+            for (int i = 0; i < this.length; i++)
+            {
+                if (i == 0)
+                {
+                    game.graphics.DrawImage(Resources.log_left, game.tile_size * x, game.tile_size * y);
+                }
+                else if (i == this.length - 1)
+                {
+                    game.graphics.DrawImage(Resources.log_right, game.tile_size * (x + i), game.tile_size * y);
+                }
+                else
+                {
+                    game.graphics.DrawImage(Resources.log_middle, game.tile_size * (x + i), game.tile_size * y);
+                }
+                
+            }
+        }
+    }
+}
