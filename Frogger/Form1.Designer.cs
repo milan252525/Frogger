@@ -1,4 +1,4 @@
-﻿namespace Hra
+﻿namespace Frogger
 {
     partial class Form1
     {

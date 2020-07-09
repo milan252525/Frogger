@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using Hra.Properties;
+using Frogger.Properties;
 
-namespace Hra
+namespace Frogger
 {
     public enum GameState {NotStarted, Running, FrogInHole, FrogDead, Win, Loss};
     public enum CarColour {Green, Red, Yellow, Blue};

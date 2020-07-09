@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hra.Properties
+namespace Frogger.Properties
 {
 
 

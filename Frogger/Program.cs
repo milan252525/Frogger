@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Hra
+namespace Frogger
 {
     static class Program
     {
