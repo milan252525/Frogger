@@ -8,11 +8,11 @@ using Hra.Properties;
 
 namespace Hra
 {
-    public enum GameState {notStarted, Running, Win, Loss};
+    public enum GameState {NotStarted, Running, FrogInHole, FrogDead, Win, Loss};
     public enum KeyPressed {up, down, left, right, none};
     class Game
     {
-        public GameState state = GameState.notStarted;
+        public GameState state = GameState.NotStarted;
         public Graphics graphics;
         public int tile_size;
         public int tiles_vertical;
@@ -20,6 +20,12 @@ namespace Hra
         public int height;
         public int width;
         public string[] background_tiles;
+        
+        public byte dead_frogs;
+        public byte frog_wins;
+
+        public byte to_win;
+        public byte to_loose;
 
         public Frog current_frog;
 
@@ -28,6 +34,7 @@ namespace Hra
         public KeyPressed key_pressed;
 
         public List<MovingGameObject> movingObjects;
+        public List<GameObject> staticObjects;
 
         public Background bg;
 
@@ -36,7 +43,7 @@ namespace Hra
             graphics = g;
             tile_size = 64;
             background_tiles = new string[] {
-                "grass",
+                "river_end",
                 "river",
                 "river",
                 "river",
@@ -53,8 +60,30 @@ namespace Hra
             width = tile_size * tiles_horizontal;
             bg = new Background(this);
             movingObjects = new List<MovingGameObject>();
+            staticObjects = new List<GameObject>();
             state = GameState.Running;
             key_pressed = KeyPressed.none;
+
+            dead_frogs = 0;
+            frog_wins = 0;
+
+            to_win = 3;
+            to_loose = 5;
+        }
+
+        public bool isFrogAt(int x, int y)
+        {
+            foreach (var obj in this.staticObjects)
+            {
+                if (obj.GetType() == typeof(Frog))
+                {
+                    if (obj.x == x && obj.y == y)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
     abstract class GameObject
@@ -93,6 +122,10 @@ namespace Hra
                         Rectangle river = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
                         game.graphics.FillRectangle(Brushes.DodgerBlue, river);
                         break;
+                    case "river_end":
+                        Rectangle river_end = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
+                        game.graphics.FillRectangle(Brushes.DodgerBlue, river_end);
+                        break;
                     case "beach":
                         for (int j = 0; j < game.tiles_horizontal; j++)
                         {
@@ -130,16 +163,20 @@ namespace Hra
                 switch (game.key_pressed)
                 {
                     case KeyPressed.up:
-                        y -= 1;
+                        if (y - 1 >= 0 && !game.isFrogAt(x, y-1))
+                            y -= 1;
                         break;
                     case KeyPressed.down:
-                        y += 1;
+                        if (y + 1 <= game.tiles_vertical - 1)
+                            y += 1;
                         break;
                     case KeyPressed.left:
-                        x -= 1;
+                        if (x - 1 >= 0)
+                            x -= 1;
                         break;
                     case KeyPressed.right:
-                        x += 1;
+                        if (x + 1 <= game.tiles_horizontal - 1)
+                            x += 1;
                         break;
                     default:
                         break;
@@ -267,6 +304,20 @@ namespace Hra
                 }
                 
             }
+        }
+    }
+
+    class LilyPad : GameObject
+    {
+        public LilyPad(Game game, int x)
+        {
+            this.x = x;
+            this.y = 0;
+            this.game = game;
+        }
+        public override void draw()
+        {
+            game.graphics.DrawImage(Resources.lilypad, game.tile_size * x, game.tile_size * y);
         }
     }
 }
