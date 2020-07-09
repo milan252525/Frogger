@@ -111,16 +111,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\beach.png" />
+    <Content Include="Resources\car_blue.png" />
+    <Content Include="Resources\car_blue_left.png" />
+    <Content Include="Resources\car_green.png" />
+    <Content Include="Resources\car_green_left.png" />
+    <Content Include="Resources\car_red.png" />
+    <Content Include="Resources\car_red_left.png" />
+    <Content Include="Resources\car_yellow.png" />
+    <Content Include="Resources\car_yellow_left.png" />
     <Content Include="Resources\lilypad.png" />
+    <Content Include="Resources\river.png" />
+    <Content Include="Resources\road.png" />
     <None Include="Resources\log_right.png" />
     <None Include="Resources\log_middle.png" />
     <None Include="Resources\log_left.png" />
     <None Include="Resources\frog.png" />
     <None Include="Resources\frog_tongue2.png" />
     <None Include="Resources\frog_tongue1.png" />
-    <None Include="Resources\car11.png" />
     <Content Include="Resources\grass.png" />
-    <Content Include="Resources\car1.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

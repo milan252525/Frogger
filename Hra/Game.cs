@@ -9,6 +9,7 @@ using Hra.Properties;
 namespace Hra
 {
     public enum GameState {NotStarted, Running, FrogInHole, FrogDead, Win, Loss};
+    public enum CarColour {Green, Red, Yellow, Blue};
     public enum KeyPressed {up, down, left, right, none};
     class Game
     {
@@ -37,6 +38,8 @@ namespace Hra
         public List<GameObject> staticObjects;
 
         public Background bg;
+
+        public Random random;
 
         public Game(Graphics g)
         {
@@ -69,6 +72,8 @@ namespace Hra
 
             to_win = 3;
             to_loose = 5;
+
+            random = new Random();
         }
 
         public bool isFrogAt(int x, int y)
@@ -119,12 +124,16 @@ namespace Hra
                         }
                         break;
                     case "river":
-                        Rectangle river = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
-                        game.graphics.FillRectangle(Brushes.DodgerBlue, river);
+                        for (int j = 0; j < game.tiles_horizontal; j++)
+                        {
+                            game.graphics.DrawImage(Resources.river, game.tile_size * j, game.tile_size * i);
+                        }
                         break;
                     case "river_end":
-                        Rectangle river_end = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
-                        game.graphics.FillRectangle(Brushes.DodgerBlue, river_end);
+                        for (int j = 0; j < game.tiles_horizontal; j++)
+                        {
+                            game.graphics.DrawImage(Resources.river, game.tile_size * j, game.tile_size * i);
+                        }
                         break;
                     case "beach":
                         for (int j = 0; j < game.tiles_horizontal; j++)
@@ -133,10 +142,10 @@ namespace Hra
                         }
                         break;
                     case "road":
-                        Rectangle road = new Rectangle(0, game.tile_size * i, game.width, game.tile_size * 1);
-                        game.graphics.FillRectangle(Brushes.Gray, road);
-                        break;
-                    default:
+                        for (int j = 0; j < game.tiles_horizontal; j++)
+                        {
+                            game.graphics.DrawImage(Resources.road, game.tile_size * j, game.tile_size * i);
+                        }
                         break;
                 }
             }  
@@ -227,16 +236,19 @@ namespace Hra
             }
         }
     }
-
+  
     class Car: MovingGameObject
     {
         bool moving_left;
+        CarColour colour;
         public Car(Game game, int x, int y, bool opposite=false)
         {
             this.game = game;
             this.x = x;
             this.y = y;
             moving_left = opposite;
+            Array values = Enum.GetValues(typeof(CarColour));
+            colour = (CarColour)values.GetValue(game.random.Next(values.Length));
         }
         public override void move()
         {
@@ -254,11 +266,40 @@ namespace Hra
         {
             if (moving_left)
             {
-                game.graphics.DrawImage(Resources.car1_left, game.tile_size * x, game.tile_size * y);
+                switch (colour)
+                {
+                    case CarColour.Green:
+                        game.graphics.DrawImage(Resources.car_green_left, game.tile_size * x, game.tile_size * y);
+                        break;
+                    case CarColour.Red:
+                        game.graphics.DrawImage(Resources.car_red_left, game.tile_size * x, game.tile_size * y);
+                        break;
+                    case CarColour.Yellow:
+                        game.graphics.DrawImage(Resources.car_yellow_left, game.tile_size * x, game.tile_size * y);
+                        break;
+                    case CarColour.Blue:
+                        game.graphics.DrawImage(Resources.car_green_left, game.tile_size * x, game.tile_size * y);
+                        break;
+                }
             }
             else
             {
-                game.graphics.DrawImage(Resources.car1, game.tile_size * x, game.tile_size * y);
+                switch (colour)
+                {
+                    case CarColour.Green:
+                        game.graphics.DrawImage(Resources.car_green, game.tile_size * x, game.tile_size * y);
+                        break;
+                    case CarColour.Red:
+                        game.graphics.DrawImage(Resources.car_red, game.tile_size * x, game.tile_size * y);
+                        break;
+                    case CarColour.Yellow:
+                        game.graphics.DrawImage(Resources.car_yellow, game.tile_size * x, game.tile_size * y);
+                        break;
+                    case CarColour.Blue:
+                        game.graphics.DrawImage(Resources.car_blue, game.tile_size * x, game.tile_size * y);
+                        break;
+                }
+                
             }
         }
     }
