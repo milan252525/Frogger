@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Frogger
@@ -15,7 +10,8 @@ namespace Frogger
         public Form1()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = Frogger.Properties.Resources.game_icon;
         }
 
         Game game;
@@ -35,10 +31,15 @@ namespace Frogger
             bool state = newGameButton.Visible;
             newGameButton.Visible = !state;
             buttonHint.Visible = !state;
-            levelSelector.Visible = !state;
+            level_slider.Visible = !state;
             level_easy.Visible = !state;
             level_medium.Visible = !state;
             level_hard.Visible = !state;
+            level_random.Visible = !state;
+            level_select.Visible = !state;
+            picture_game_logo.Visible = !state;
+
+            label_lives_left.Visible = state;
         }
 
         private void startGame()
@@ -46,7 +47,7 @@ namespace Frogger
             bitmap = new Bitmap(1000, 1000);
             Graphics g = Graphics.FromImage(bitmap);
 
-            int level_selected = levelSelector.Value;
+            int level_selected = level_slider.Value;
             GameLevel game_level = (GameLevel) level_selected;
 
             game = new Game(g, game_level);
@@ -61,7 +62,7 @@ namespace Frogger
 
             game.state = GameState.Running;
             timer1.Enabled = true;
-            tick = 200;
+            tick = 0;
         }
 
         
@@ -313,14 +314,12 @@ namespace Frogger
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void buttonHint_Click(object sender, EventArgs e)
         {
-            //game.key_pressed = KeyPressed.none;
-        }
-
-        private void level_medium_Click(object sender, EventArgs e)
-        {
-
+            Form2 howtoplay = new Form2();
+            howtoplay.FormBorderStyle = FormBorderStyle.FixedSingle;
+            howtoplay.Icon = Frogger.Properties.Resources.game_icon;
+            howtoplay.Show();
         }
     }
 }

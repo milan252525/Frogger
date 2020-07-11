@@ -163,6 +163,16 @@ namespace Frogger.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap frog_big {
+            get {
+                object obj = ResourceManager.GetObject("frog_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap frog_tongue1 {
             get {
                 object obj = ResourceManager.GetObject("frog_tongue1", resourceCulture);
@@ -176,6 +186,26 @@ namespace Frogger.Properties {
         internal static System.Drawing.Bitmap frog_tongue2 {
             get {
                 object obj = ResourceManager.GetObject("frog_tongue2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon game_icon {
+            get {
+                object obj = ResourceManager.GetObject("game_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap game_logo {
+            get {
+                object obj = ResourceManager.GetObject("game_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

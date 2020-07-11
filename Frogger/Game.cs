@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using Frogger.Properties;
 
@@ -12,7 +9,7 @@ namespace Frogger
     public enum CarColour {Green, Red, Yellow, Blue};
     public enum KeyPressed {up, down, left, right, none};
 
-    public enum GameLevel {Normal, Highway, DeepRiver };
+    public enum GameLevel {Normal, Highway, DeepRiver, Random};
     class Game
     {
         public GameState state;
@@ -47,6 +44,8 @@ namespace Frogger
         public Game(Graphics g, GameLevel l)
         {
             level = l;
+            random = new Random();
+
             switch (level)
             {
                 case GameLevel.Normal:
@@ -68,9 +67,9 @@ namespace Frogger
                         "log right 2 19",
                         "log left 4 27",
                         "",
-                        "car right 30",
-                        "car left 20",
-                        "car right 50",
+                        "car right 24",
+                        "car left 12",
+                        "car right 16",
                         ""
                     };
                     break;
@@ -124,6 +123,55 @@ namespace Frogger
                         ""
                     };
                     break;
+                case GameLevel.Random:
+                    background_tiles = new string[9];
+                    spawning = new string[9];
+
+                    background_tiles[0] = "river_end";
+                    spawning[0] = "";
+                    if (random.Next(0,2) < 1)
+                        background_tiles[8] = "grass";
+                    else
+                        background_tiles[8] = "beach";
+                    spawning[8] = "";
+
+                    for (int i = 1; i < background_tiles.Length - 1; i++)
+                    {
+                        int rand = random.Next(0, 10);
+                        if (rand < 4)
+                        {
+                            background_tiles[i] = "road";
+                            string spawn = "car ";
+                            if (random.Next(0, 2) < 1)
+                                spawn += "left ";
+                            else
+                                spawn += "right ";
+                            spawn += (random.Next(3, 9) * 4).ToString();
+                            spawning[i] = spawn;
+                        }
+                        else if (rand < 8)
+                        {
+                            background_tiles[i] = "river";
+                            string spawn = "log ";
+                            if (random.Next(0, 2) < 1)
+                                spawn += "left ";
+                            else
+                                spawn += "right ";
+                            spawn += (random.Next(2, 5)).ToString();
+                            spawn += " ";
+                            spawn += (random.Next(5, 9) * 4).ToString();
+                            spawning[i] = spawn;
+                        } 
+                        else
+                        {
+                            if (random.Next(0, 2) < 1)
+                                background_tiles[i] = "grass";
+                            else
+                                background_tiles[i] = "beach";
+                            spawning[i] = "";
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -147,7 +195,7 @@ namespace Frogger
             to_win = 3;
             to_loose = 5;
 
-            random = new Random();
+            
         }
 
         public bool isFrogAt(int x, int y)
