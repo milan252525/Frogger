@@ -11,17 +11,22 @@ namespace Frogger
     public enum GameState {NotStarted, Running, FrogInHole, FrogDead, Win, Loss};
     public enum CarColour {Green, Red, Yellow, Blue};
     public enum KeyPressed {up, down, left, right, none};
+
+    public enum GameLevel {Normal, Highway, DeepRiver };
     class Game
     {
-        public GameState state = GameState.NotStarted;
+        public GameState state;
+        public GameLevel level;
         public Graphics graphics;
         public int tile_size;
         public int tiles_vertical;
         public int tiles_horizontal;
         public int height;
         public int width;
+
         public string[] background_tiles;
-        
+        public string[] spawning;
+
         public byte dead_frogs;
         public byte frog_wins;
 
@@ -29,8 +34,6 @@ namespace Frogger
         public byte to_loose;
 
         public Frog current_frog;
-
-        public GameObject[,] map;
 
         public KeyPressed key_pressed;
 
@@ -41,30 +44,101 @@ namespace Frogger
 
         public Random random;
 
-        public Game(Graphics g)
+        public Game(Graphics g, GameLevel l)
         {
+            level = l;
+            switch (level)
+            {
+                case GameLevel.Normal:
+                    background_tiles = new string[] {
+                        "river_end",
+                        "river",
+                        "river",
+                        "river",
+                        "beach",
+                        "road",
+                        "road",
+                        "road",
+                        "grass"
+                    };
+                    spawning = new string[]
+                    {
+                        "",
+                        "log left 3 23",
+                        "log right 2 19",
+                        "log left 4 27",
+                        "",
+                        "car right 30",
+                        "car left 20",
+                        "car right 50",
+                        ""
+                    };
+                    break;
+                case GameLevel.DeepRiver:
+                    background_tiles = new string[] {
+                        "river_end",
+                        "river",
+                        "river",
+                        "river",
+                        "river",
+                        "river",
+                        "river",
+                        "river",
+                        "beach"
+                    };
+                    spawning = new string[]
+                    {
+                        "",
+                        "log left 2 32",
+                        "log right 4 36",
+                        "log left 3 35",
+                        "log right 5 44",
+                        "log right 2 16",
+                        "log left 4 32",
+                        "log right 3 36",
+                        ""
+                    };
+                    break;
+                case GameLevel.Highway:
+                    background_tiles = new string[] {
+                        "river_end",
+                        "road",
+                        "road",
+                        "road",
+                        "road",
+                        "road",
+                        "road",
+                        "road",
+                        "grass"
+                    };
+                    spawning = new string[]
+                    {
+                        "",
+                        "car left 24",
+                        "car right 12",
+                        "car left 16",
+                        "car left 20",
+                        "car right 12",
+                        "car right 24",
+                        "car left 20",
+                        ""
+                    };
+                    break;
+                default:
+                    break;
+            }
+
             graphics = g;
             tile_size = 64;
-            background_tiles = new string[] {
-                "river_end",
-                "river",
-                "river",
-                "river",
-                "beach",
-                "road",
-                "road",
-                "road",
-                "grass"
-            };
             tiles_vertical = background_tiles.Length;
             tiles_horizontal = 11;
-            map = new GameObject[tiles_vertical, tiles_horizontal];
+            
             height = tile_size * tiles_vertical;
             width = tile_size * tiles_horizontal;
             bg = new Background(this);
             movingObjects = new List<MovingGameObject>();
             staticObjects = new List<GameObject>();
-            state = GameState.Running;
+            state = GameState.NotStarted;
             key_pressed = KeyPressed.none;
 
             dead_frogs = 0;

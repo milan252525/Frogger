@@ -25,21 +25,34 @@ namespace Frogger
         long tick;
         private void button1_Click(object sender, EventArgs e)
         {
-            button1.Visible = false;
+            toggleMenuButtons();
             in_menu = false;
             startGame();
+        }
+
+        private void toggleMenuButtons()
+        {
+            bool state = newGameButton.Visible;
+            newGameButton.Visible = !state;
+            buttonHint.Visible = !state;
+            levelSelector.Visible = !state;
+            level_easy.Visible = !state;
+            level_medium.Visible = !state;
+            level_hard.Visible = !state;
         }
 
         private void startGame()
         {
             bitmap = new Bitmap(1000, 1000);
             Graphics g = Graphics.FromImage(bitmap);
-            game = new Game(g);
+
+            int level_selected = levelSelector.Value;
+            GameLevel game_level = (GameLevel) level_selected;
+
+            game = new Game(g, game_level);
             
             Frog player = new Frog(game);
             game.current_frog = player;
-
-
 
             game.staticObjects.Add(new LilyPad(game, game.tiles_horizontal / 2));
             game.staticObjects.Add(new LilyPad(game, (game.tiles_horizontal / 3) - 1));
@@ -48,37 +61,64 @@ namespace Frogger
 
             game.state = GameState.Running;
             timer1.Enabled = true;
-            tick = 2100; //trigger all spawning events at the start
+            tick = 200;
         }
 
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = "LIVES LEFT: " + (game.to_loose - game.dead_frogs).ToString();
+            label_lives_left.Text = "LIVES LEFT: " + (game.to_loose - game.dead_frogs).ToString();
+
+            List<MovingGameObject> to_remove = new List<MovingGameObject>();
+
             if (game.state == GameState.Running)
             {
-                if (tick % 15 == 0)
+                for (int i = 0; i < game.spawning.Length; i++)
                 {
-                    game.movingObjects.Add(new Car(game, -1, 6));
-                }
-                if (tick % 20 == 0)
-                {
-                    game.movingObjects.Add(new Car(game, game.tiles_horizontal - 1, 7, true));
-                }
-                if (tick % 25 == 0)
-                {
-                    game.movingObjects.Add(new Log(game, -2, 1, 2));
-                }
-                if (tick % 35 == 0)
-                {
-                    game.movingObjects.Add(new Car(game, game.tiles_horizontal - 1, 5, true));
-                    game.movingObjects.Add(new Log(game, -3, 3, 3));
-                    game.movingObjects.Add(new Log(game, game.tiles_horizontal - 1, 2, 4, true));
-                }
-                game.bg.draw();
-                List<MovingGameObject> to_remove = new List<MovingGameObject>();
+                    string spawn_rule = game.spawning[i];
+                    string[] rules = spawn_rule.Split(' ');
+                    
+                    string type = rules[0];
+                    int frequency;
+                    string where;
 
-                
+                    switch (type)
+                    {
+                        case "log":
+                            frequency = int.Parse(rules[3]);
+                            if (tick % frequency != 0) break;
+                            where = rules[1];
+                            short length = short.Parse(rules[2]);
+                            
+                            if (where == "left")
+                            {
+                                game.movingObjects.Add(new Log(game, 0-length, i, length));
+                            } 
+                            else
+                            {
+                                game.movingObjects.Add(new Log(game, game.tiles_horizontal - 1, i, length, true));
+                            }
+                            break;
+                        case "car":
+                            frequency = int.Parse(rules[2]);
+                            if (tick % frequency != 0) break;
+                            where = rules[1];
+                            if (where == "left")
+                            {
+                                game.movingObjects.Add(new Car(game, -1, i));
+                            }
+                            else
+                            {
+                                game.movingObjects.Add(new Car(game, game.tiles_horizontal - 1, i, true));
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                game.bg.draw(); 
+
                 game.current_frog.on_log = false;
                 foreach (var obj in game.movingObjects)
                 {
@@ -231,7 +271,7 @@ namespace Frogger
                 game.state = GameState.NotStarted;
                 MessageBox.Show("GAME Won!\nSCORE: " + game.frog_wins.ToString());
                 this.Refresh();
-                button1.Visible = true;
+                toggleMenuButtons();
                 in_menu = true;
             }
             if (game.state == GameState.Loss)
@@ -239,11 +279,9 @@ namespace Frogger
                 game.state = GameState.NotStarted;
                 MessageBox.Show("GAME OVER!\nSCORE: " + game.frog_wins.ToString());
                 this.Refresh();
-                button1.Visible = true;
+                toggleMenuButtons();
                 in_menu = true;
             }
-
-
         }
         
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -278,6 +316,11 @@ namespace Frogger
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             //game.key_pressed = KeyPressed.none;
+        }
+
+        private void level_medium_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
