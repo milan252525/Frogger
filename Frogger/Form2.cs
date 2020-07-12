@@ -14,6 +14,7 @@ namespace Frogger
     {
         public Form2()
         {
+            //how to play window
             InitializeComponent();
         }
     }
