@@ -1,4 +1,8 @@
-﻿using System;
+//Frogger - zápočtový program
+//Milan Abrahám
+//NPRG031 Programování 2
+
+using System;
 using System.Windows.Forms;
 
 namespace Frogger
