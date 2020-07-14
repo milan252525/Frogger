@@ -31,6 +31,10 @@ Pozadí je pak skládáno z jednotlivých čtverců, stejně tak jako kláda, kt
 | <img title="" src="https://github.com/milan252525/Frogger/blob/master/Frogger/Resources/beach.png?raw=true" alt="">            | pláž    | Tráva je pro žábu bezpečná.                                                              |
 | <img title="" src="https://github.com/milan252525/Frogger/blob/master/Frogger/Resources/road.png?raw=true" alt="">             | silnice | Silnice je pro žábu bezpečná, ale musí dávat pozor na přijíždějící auta.                 |
 
+## Hlavní menu
+
+
+
 ## Herní prostředí
 
 Prostředí je tvořené z dílku, každý má velikost 64x64 bodů, právě kvůli velikosti obrázků. Nejdřív je nakresleno pozadí, podle přednastavených pravidel. Na pozadí jsou potom přikreslovány herní objetky.
@@ -41,7 +45,17 @@ Objekty včetně pozadí nejsou vykreslovány přímo na obrazovku. Nakreslí se
 
 ## Objektový návrh
 
+Objektový návrh je znázorněn na následujícím UML diagramu. Všechny objekty dědí od abstraktní třídy GameObject. Mají metodu draw, která umožňuje jejich nakreslení na herní plochu. Objekty, kterými je třeba pohybovat, jsou potomky třídy MovingGameObject, mají navíc metodu, která jimi pohne. Celé pozadí je jedním objektem, vždy se nakreslí první a vykreslí celé pozadí podle předem daných pravidel, která jsou uložená v objektu Game.
 
+Game je hlavní objekt obsahující všechna data o hře, uchovává všechny objekty ve dvou polích, jedno s pohyblivými objekty a druhé se statickými. Dále obsahuje pravidla pro strukturu herního prostředí a vytváření nových objektů, udržuje stav hry, skóre atd. 
+
+<div>
+<img src="https://github.com/milan252525/Frogger/blob/master/docs/uml_frogger.png?raw=true">
+</div>
+
+## Herní úrovně
+
+Hra obsahuje 3 rozdílně obtížné úrovně s různými prostředí a možnost nechat si prostředí náhodně vygenerovat.
 
 ## Zdroje
 
