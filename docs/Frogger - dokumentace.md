@@ -33,7 +33,11 @@ Pozadí je pak skládáno z jednotlivých čtverců, stejně tak jako kláda, kt
 
 ## Hlavní menu
 
+Hlavní menu obsahuje tlačítko pro začátek nové hry, tlačítko s nápovědou a výběr úrovně. Tlačítko pro začátek nové hry spustí hru v úrovni, která je vybrána posuvníkem.
 
+<div>
+<img src="https://github.com/milan252525/Frogger/blob/master/docs/images/main_menu.png?raw=true">
+</div>
 
 ## Herní prostředí
 
@@ -50,7 +54,7 @@ Objektový návrh je znázorněn na následujícím UML diagramu. Všechny objek
 Game je hlavní objekt obsahující všechna data o hře, uchovává všechny objekty ve dvou polích, jedno s pohyblivými objekty a druhé se statickými. Dále obsahuje pravidla pro strukturu herního prostředí a vytváření nových objektů, udržuje stav hry, skóre atd. 
 
 <div>
-<img src="https://github.com/milan252525/Frogger/blob/master/docs/uml_frogger.png?raw=true">
+<img src="https://github.com/milan252525/Frogger/blob/master/docs/images/uml_frogger.png?raw=true">
 </div>
 
 ## Herní úrovně
