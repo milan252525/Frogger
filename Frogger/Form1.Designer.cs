@@ -46,10 +46,10 @@
             // 
             // newGameButton
             // 
-            this.newGameButton.Location = new System.Drawing.Point(273, 180);
-            this.newGameButton.Margin = new System.Windows.Forms.Padding(2);
+            this.newGameButton.Location = new System.Drawing.Point(364, 222);
+            this.newGameButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newGameButton.Name = "newGameButton";
-            this.newGameButton.Size = new System.Drawing.Size(152, 46);
+            this.newGameButton.Size = new System.Drawing.Size(203, 57);
             this.newGameButton.TabIndex = 0;
             this.newGameButton.Text = "NEW GAME";
             this.newGameButton.UseVisualStyleBackColor = true;
@@ -65,9 +65,10 @@
             this.label_lives_left.AutoSize = true;
             this.label_lives_left.BackColor = System.Drawing.Color.Ivory;
             this.label_lives_left.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_lives_left.Location = new System.Drawing.Point(586, 0);
+            this.label_lives_left.Location = new System.Drawing.Point(781, 0);
+            this.label_lives_left.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_lives_left.Name = "label_lives_left";
-            this.label_lives_left.Size = new System.Drawing.Size(117, 18);
+            this.label_lives_left.Size = new System.Drawing.Size(147, 24);
             this.label_lives_left.TabIndex = 1;
             this.label_lives_left.Text = "LIVES LEFT: 5";
             this.label_lives_left.Visible = false;
@@ -76,20 +77,19 @@
             // 
             this.level_slider.Cursor = System.Windows.Forms.Cursors.Default;
             this.level_slider.LargeChange = 1;
-            this.level_slider.Location = new System.Drawing.Point(142, 418);
-            this.level_slider.Margin = new System.Windows.Forms.Padding(2);
+            this.level_slider.Location = new System.Drawing.Point(189, 514);
+            this.level_slider.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.level_slider.Maximum = 3;
             this.level_slider.Name = "level_slider";
-            this.level_slider.Size = new System.Drawing.Size(453, 45);
+            this.level_slider.Size = new System.Drawing.Size(604, 56);
             this.level_slider.TabIndex = 1;
             // 
             // level_easy
             // 
             this.level_easy.AutoSize = true;
-            this.level_easy.Location = new System.Drawing.Point(97, 466);
-            this.level_easy.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.level_easy.Location = new System.Drawing.Point(129, 574);
             this.level_easy.Name = "level_easy";
-            this.level_easy.Size = new System.Drawing.Size(114, 26);
+            this.level_easy.Size = new System.Drawing.Size(147, 34);
             this.level_easy.TabIndex = 2;
             this.level_easy.Text = "EASY\r\nORIGINAL FROGGER\r\n";
             this.level_easy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -97,10 +97,9 @@
             // level_medium
             // 
             this.level_medium.AutoSize = true;
-            this.level_medium.Location = new System.Drawing.Point(254, 466);
-            this.level_medium.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.level_medium.Location = new System.Drawing.Point(339, 574);
             this.level_medium.Name = "level_medium";
-            this.level_medium.Size = new System.Drawing.Size(94, 26);
+            this.level_medium.Size = new System.Drawing.Size(118, 34);
             this.level_medium.TabIndex = 3;
             this.level_medium.Text = "MEDIUM\r\nBUSY HIGHWAY ";
             this.level_medium.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,20 +107,19 @@
             // level_hard
             // 
             this.level_hard.AutoSize = true;
-            this.level_hard.Location = new System.Drawing.Point(400, 466);
-            this.level_hard.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.level_hard.Location = new System.Drawing.Point(533, 574);
             this.level_hard.Name = "level_hard";
-            this.level_hard.Size = new System.Drawing.Size(72, 26);
+            this.level_hard.Size = new System.Drawing.Size(90, 34);
             this.level_hard.TabIndex = 4;
             this.level_hard.Text = "HARD\r\nDEEP RIVER";
             this.level_hard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonHint
             // 
-            this.buttonHint.Location = new System.Drawing.Point(273, 260);
-            this.buttonHint.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonHint.Location = new System.Drawing.Point(364, 320);
+            this.buttonHint.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHint.Name = "buttonHint";
-            this.buttonHint.Size = new System.Drawing.Size(152, 46);
+            this.buttonHint.Size = new System.Drawing.Size(203, 57);
             this.buttonHint.TabIndex = 5;
             this.buttonHint.Text = "HOW TO PLAY";
             this.buttonHint.UseVisualStyleBackColor = true;
@@ -130,10 +128,9 @@
             // level_random
             // 
             this.level_random.AutoSize = true;
-            this.level_random.Location = new System.Drawing.Point(556, 466);
-            this.level_random.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.level_random.Location = new System.Drawing.Point(741, 574);
             this.level_random.Name = "level_random";
-            this.level_random.Size = new System.Drawing.Size(55, 26);
+            this.level_random.Size = new System.Drawing.Size(69, 34);
             this.level_random.TabIndex = 6;
             this.level_random.Text = "RANDOM\r\nLEVEL\r\n";
             this.level_random.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,10 +139,9 @@
             // 
             this.level_select.AutoSize = true;
             this.level_select.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.level_select.Location = new System.Drawing.Point(96, 370);
-            this.level_select.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.level_select.Location = new System.Drawing.Point(128, 455);
             this.level_select.Name = "level_select";
-            this.level_select.Size = new System.Drawing.Size(165, 24);
+            this.level_select.Size = new System.Drawing.Size(205, 29);
             this.level_select.TabIndex = 7;
             this.level_select.Text = "SELECT LEVEL:";
             this.level_select.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -153,19 +149,19 @@
             // picture_game_logo
             // 
             this.picture_game_logo.Image = global::Frogger.Properties.Resources.game_logo;
-            this.picture_game_logo.Location = new System.Drawing.Point(123, 39);
-            this.picture_game_logo.Margin = new System.Windows.Forms.Padding(2);
+            this.picture_game_logo.Location = new System.Drawing.Point(164, 48);
+            this.picture_game_logo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picture_game_logo.Name = "picture_game_logo";
-            this.picture_game_logo.Size = new System.Drawing.Size(468, 91);
+            this.picture_game_logo.Size = new System.Drawing.Size(624, 112);
             this.picture_game_logo.TabIndex = 8;
             this.picture_game_logo.TabStop = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.ClientSize = new System.Drawing.Size(704, 576);
+            this.ClientSize = new System.Drawing.Size(939, 709);
             this.Controls.Add(this.picture_game_logo);
             this.Controls.Add(this.level_select);
             this.Controls.Add(this.level_random);
@@ -177,7 +173,8 @@
             this.Controls.Add(this.label_lives_left);
             this.Controls.Add(this.newGameButton);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Frogger";
             ((System.ComponentModel.ISupportInitialize)(this.level_slider)).EndInit();

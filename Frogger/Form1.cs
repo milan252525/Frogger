@@ -144,7 +144,7 @@ namespace Frogger
                             else
                             {
                                 //spawn new car on right, last argument meaning movement in opposite direction
-                                game.movingObjects.Add(new Car(game, game.tiles_horizontal - 1, i, true));
+                                game.movingObjects.Add(new Car(game, game.tiles_horizontal, i, true));
                             }
                             break;
                         //if incorrect or empty rule has been passed don't do anything
@@ -171,7 +171,7 @@ namespace Frogger
                             //move car
                             obj.move();
                             //if car got out of screen, prepare it for removal
-                            if (obj.x == game.tiles_horizontal - 1 || obj.x == -1)
+                            if (obj.x == game.tiles_horizontal || obj.x == -1)
                             {
                                 to_remove.Add(obj);
                             }

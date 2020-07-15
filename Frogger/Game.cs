@@ -175,8 +175,8 @@ namespace Frogger
                             spawn += (random.Next(3, 9) * 4).ToString();
                             spawning[i] = spawn;
                         }
-                        //40% road
-                        else if (rand < 8)
+                        //40% river
+                        else if (rand < 9)
                         {
                             background_tiles[i] = "river";
                             string spawn = "log ";
