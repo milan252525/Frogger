@@ -31,12 +31,6 @@ Pozadí je pak skládáno z jednotlivých čtverců, stejně tak jako kláda, kt
 
 Pro žábu jsem vytvořil animaci, jednou za určitý čas vyplázne jazyk, to je vyřešeno měnícími se obrázky žáby.
 
-⠀
-
-⠀
-
-⠀
-
 ## Hlavní menu
 
 Hlavní menu obsahuje tlačítko pro začátek nové hry, tlačítko s nápovědou a výběr úrovně. Nápověda obsahuje ovládání a popis všech herních objektů a úrovní. Tlačítko pro začátek nové hry spustí hru v úrovni, která je vybrána posuvníkem.
@@ -107,8 +101,6 @@ Pokud žába zemřela a zbývají ještě životy vytvoří se nová, v opačné
 Některé části jsem se rozhodl pozměnit od původní hry. Například se mi nelíbila grafika původní hry, proto jsem si nakreslil vlastní v jiném stylu.
 
 Původní hra obsahuje pouze jedno prostředí, ve kterém se ale mění obtížnost. A hráči je počítáno skóre, čím rychleji vyhraje, tím vyšší je. Skóre a zvyšující se obtížnost jsem se rozhodl nahradit více úrovněmi s rozdílnou obtížností. Jelikož jsem měl vytvořený systém umožňující různou generaci prostředí na základě předurčených pravidel bylo snadné přidat náhodně generované úrovně. 
-
-⠀
 
 ## Závěr
 
